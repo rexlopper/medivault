@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediVault Intake Demo | Records Service Integration</title>
+    <meta
+      name="description"
+      content="Desktop-friendly MediVault intake demo connected to the records service for local integration testing."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./intake-demo.css?v=patient-auth-1" />
+  </head>
+  <body class="auth-pending">
+    <div class="demo-shell">
+      <nav class="app-switcher">
+        <a class="app-switcher-link active" href="./intake-demo.html">Patient App</a>
+        <a class="app-switcher-link" href="./doctor-dashboard.html">Doctor Dashboard</a>
+      </nav>
+
+      <header class="demo-hero">
+        <div>
+          <p class="eyebrow">Live Frontend Integration</p>
+          <div class="patient-session-banner">
+            <div>
+              <p class="patient-session-label">Patient Portal</p>
+              <p class="patient-session-copy" id="patient-welcome">Checking your patient session...</p>
+            </div>
+            <button class="secondary-button session-button" type="button" id="patient-logout-button">Log out</button>
+          </div>
+          <h1>Patient intake demo wired to `records_service`.</h1>
+          <p class="hero-copy">
+            This desktop test flow captures patient details, creates an encounter, writes a draft
+            intake note, and shows the doctor-ready handoff in one place.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <p class="hero-card-label">Connected Flow</p>
+          <ul class="flow-list">
+            <li>Create patient record</li>
+            <li>Create encounter for today's visit</li>
+            <li>Create consult session for the doctor's queue</li>
+            <li>Write structured draft note from intake</li>
+            <li>Preview the doctor-side handoff</li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="demo-grid">
+        <section class="panel panel-form">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Patient Intake</p>
+              <h2>Prepare the consult before the patient walks in.</h2>
+            </div>
+            <div class="status-badge" id="api-status">API not checked</div>
+          </div>
+
+          <form id="intake-form" class="intake-form">
+            <div class="api-row">
+              <label class="field wide">
+                <span>Records Service Base URL</span>
+                <input id="api-base-url" name="apiBaseUrl" type="url" value="http://127.0.0.1:8000" required />
+              </label>
+              <label class="field wide">
+                <span>Patient Summary Service Base URL</span>
+                <input
+                  id="summary-api-base-url"
+                  name="summaryApiBaseUrl"
+                  type="url"
+                  value="http://127.0.0.1:8001"
+                  required
+                />
+              </label>
+              <label class="field wide">
+                <span>Attachment Service Base URL</span>
+                <input
+                  id="attachment-api-base-url"
+                  name="attachmentApiBaseUrl"
+                  type="url"
+                  value="http://127.0.0.1:8002"
+                  required
+                />
+              </label>
+              <label class="field wide">
+                <span>Consult Orchestration Base URL</span>
+                <input
+                  id="consult-api-base-url"
+                  name="consultApiBaseUrl"
+                  type="url"
+                  value="http://127.0.0.1:8003"
+                  required
+                />
+              </label>
+              <button class="secondary-button" type="button" id="check-api-button">Check API</button>
+            </div>
+
+            <div class="form-grid">
+              <label class="field">
+                <span>Clinic</span>
+                <input name="clinicName" type="text" value="Clinica San Lorenzo" required />
+              </label>
+              <label class="field">
+                <span>Doctor</span>
+                <input name="doctorName" type="text" value="Dr. J. Reyes" required />
+              </label>
+              <label class="field">
+                <span>Patient First Name</span>
+                <input name="givenName" type="text" value="Maria" required />
+              </label>
+              <label class="field">
+                <span>Patient Last Name</span>
+                <input name="familyName" type="text" value="Santos" required />
+              </label>
+              <label class="field">
+                <span>Date of Birth</span>
+                <input name="birthDate" type="date" value="1991-08-12" required />
+              </label>
+              <label class="field">
+                <span>Sex at Birth</span>
+                <select name="sexAtBirth" required>
+                  <option value="female" selected>Female</option>
+                  <option value="male">Male</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Mobile Number</span>
+                <input name="mobileNumber" type="tel" value="09171234567" />
+              </label>
+              <label class="field">
+                <span>Clinician ID</span>
+                <input name="clinicianId" type="text" value="dr-reyes" required />
+              </label>
+            </div>
+
+            <div class="step-card">
+              <div class="step-header">
+                <div>
+                  <p class="step-label">Step 1</p>
+                  <h3>What is bothering the patient today?</h3>
+                </div>
+                <span class="topic-chip">Symptoms</span>
+              </div>
+
+              <label class="field">
+                <span>Chief complaint</span>
+                <input name="chiefComplaint" type="text" value="Headache and dizziness for 5 days" required />
+              </label>
+
+              <label class="field">
+                <span>Symptoms</span>
+                <textarea
+                  name="symptoms"
+                  rows="4"
+                  placeholder="One per line"
+                >Headache&#10;Dizziness&#10;Light sensitivity</textarea>
+              </label>
+            </div>
+
+            <div class="step-card">
+              <div class="step-header">
+                <div>
+                  <p class="step-label">Step 2</p>
+                  <h3>Context the doctor needs upfront.</h3>
+                </div>
+                <span class="topic-chip">History</span>
+              </div>
+
+              <label class="field">
+                <span>Current medications</span>
+                <textarea
+                  name="medications"
+                  rows="3"
+                  placeholder="One per line"
+                >Paracetamol 500mg as needed</textarea>
+              </label>
+
+              <label class="field">
+                <span>Allergies</span>
+                <textarea name="allergies" rows="2" placeholder="One per line">Seafood</textarea>
+              </label>
+
+              <label class="field">
+                <span>Relevant history</span>
+                <textarea
+                  name="history"
+                  rows="4"
+                  placeholder="Chronic conditions, previous diagnoses, recent labs"
+                >Patient reports recurring migraine episodes during high-stress weeks. No recent ER visits.</textarea>
+              </label>
+            </div>
+
+            <div class="step-card">
+              <div class="step-header">
+                <div>
+                  <p class="step-label">Step 3</p>
+                  <h3>Consent and handoff rules.</h3>
+                </div>
+                <span class="topic-chip">Privacy</span>
+              </div>
+
+              <div class="toggle-grid">
+                <label class="toggle-card">
+                  <input name="shareToday" type="checkbox" checked />
+                  <span class="toggle-copy">
+                    <strong>Share with today's doctor</strong>
+                    <small>Required to load this intake into the encounter.</small>
+                  </span>
+                </label>
+                <label class="toggle-card">
+                  <input name="followUpAccess" type="checkbox" checked />
+                  <span class="toggle-copy">
+                    <strong>Allow 30-day follow-up access</strong>
+                    <small>Doctor can review this record after today's consult.</small>
+                  </span>
+                </label>
+                <label class="toggle-card">
+                  <input name="shareSpecialists" type="checkbox" />
+                  <span class="toggle-copy">
+                    <strong>Share with referred specialists</strong>
+                    <small>Only doctors explicitly referred by today's clinician.</small>
+                  </span>
+                </label>
+                <label class="toggle-card">
+                  <input name="researchConsent" type="checkbox" />
+                  <span class="toggle-copy">
+                    <strong>Allow anonymized research use</strong>
+                    <small>No direct personal identifiers included.</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-header">
+                <div>
+                  <p class="step-label">Step 4</p>
+                  <h3>Optional supporting attachments.</h3>
+                </div>
+                <span class="topic-chip">Files</span>
+              </div>
+
+              <div id="attachment-list" class="attachment-list"></div>
+
+              <div class="attachment-actions">
+                <button class="secondary-button" type="button" id="add-attachment-button">Add another attachment</button>
+                <p class="helper-text">Upload each attachment row first. Final submit will link every uploaded file to the saved intake.</p>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit" id="submit-button">Send to records service</button>
+              <p class="helper-text">
+                This will call records and summary services, then attach any files you already
+                uploaded to local MinIO.
+              </p>
+            </div>
+          </form>
+        </section>
+
+        <aside class="panel panel-preview">
+          <div class="preview-stack">
+            <section class="preview-card">
+              <p class="section-kicker">Doctor Handoff Preview</p>
+              <h2 id="preview-name">Maria is almost checked in.</h2>
+              <p class="preview-copy" id="preview-subtitle">
+                Once submitted, the visit summary below reflects what the doctor can see before the consultation.
+              </p>
+
+              <div class="summary-grid">
+                <article class="summary-pill">
+                  <span class="summary-label">Clinic</span>
+                  <strong id="preview-clinic">Clinica San Lorenzo</strong>
+                </article>
+                <article class="summary-pill">
+                  <span class="summary-label">Doctor</span>
+                  <strong id="preview-doctor">Dr. J. Reyes</strong>
+                </article>
+                <article class="summary-pill">
+                  <span class="summary-label">Primary complaint</span>
+                  <strong id="preview-chief-complaint">Headache and dizziness for 5 days</strong>
+                </article>
+                <article class="summary-pill">
+                  <span class="summary-label">Follow-up access</span>
+                  <strong id="preview-consent">Active for 30 days</strong>
+                </article>
+              </div>
+
+              <div class="handoff-card">
+                <h3>Draft intake note</h3>
+                <pre id="note-preview">Symptoms:
+- Headache
+- Dizziness
+- Light sensitivity
+
+Medications:
+- Paracetamol 500mg as needed
+
+Allergies:
+- Seafood
+
+History:
+Patient reports recurring migraine episodes during high-stress weeks. No recent ER visits.
+
+Consent:
+- Shared with today's doctor
+- 30-day follow-up access enabled</pre>
+              </div>
+            </section>
+
+            <section class="preview-card">
+              <p class="section-kicker">Submission Results</p>
+              <div id="submission-state" class="submission-state idle">
+                Waiting for your first intake submission.
+              </div>
+              <dl class="result-list">
+                <div>
+                  <dt>Patient ID</dt>
+                  <dd id="result-patient-id">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Encounter ID</dt>
+                  <dd id="result-encounter-id">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Draft note ID</dt>
+                  <dd id="result-note-id">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Summary ID</dt>
+                  <dd id="result-summary-id">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Summary version</dt>
+                  <dd id="result-summary-version">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Consult session ID</dt>
+                  <dd id="result-consult-id">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Consult session status</dt>
+                  <dd id="result-consult-status">Not created yet</dd>
+                </div>
+                <div>
+                  <dt>Attachment IDs</dt>
+                  <dd id="result-attachment-id">No attachments uploaded yet</dd>
+                </div>
+                <div>
+                  <dt>Attachment downloads</dt>
+                  <dd id="result-attachment-download">No attachments uploaded yet</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="preview-card">
+              <p class="section-kicker">Payload & Response Log</p>
+              <pre id="request-log" class="log-panel">No request sent yet.</pre>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./intake-demo.js?v=patient-auth-1"></script>
+  </body>
+</html>

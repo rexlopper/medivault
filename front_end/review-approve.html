@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediVault Review & Approve | Doctor Sign-Off</title>
+    <meta
+      name="description"
+      content="Doctor-facing MediVault review and approve screen for AI-drafted consultation notes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./review-approve.css?v=review5" />
+  </head>
+  <body>
+    <div class="review-shell">
+      <nav class="app-switcher">
+        <a class="app-switcher-link" href="./intake-demo.html">Patient App</a>
+        <a class="app-switcher-link" href="./doctor-dashboard.html">Doctor Dashboard</a>
+      </nav>
+
+      <header class="review-hero">
+        <div class="workflow-pills">
+          <span class="workflow-pill">1 Dashboard</span>
+          <span class="workflow-pill">2 Pre-visit summary</span>
+          <span class="workflow-pill">3 AI note assistant</span>
+          <span class="workflow-pill active">4 Review & approve</span>
+          <span class="workflow-pill">5 Saved record</span>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Doctor Review & Approve</p>
+          <h1>Approve nothing until the doctor signs off.</h1>
+          <p class="hero-text">
+            This step surfaces the AI-drafted note, highlights suggested edits, and keeps final
+            control with the doctor before anything is saved as part of the consult record.
+          </p>
+        </div>
+      </header>
+
+      <section class="settings-panel">
+        <div class="settings-copy">
+          <p class="eyebrow">Live Service Connections</p>
+          <h2>Load one consult session into the review workflow.</h2>
+        </div>
+
+        <div class="settings-grid">
+          <label class="field">
+            <span>Records Service</span>
+            <input id="records-base-url" type="url" value="http://127.0.0.1:8000" />
+          </label>
+          <label class="field">
+            <span>Summary Service</span>
+            <input id="summary-base-url" type="url" value="http://127.0.0.1:8001" />
+          </label>
+          <label class="field">
+            <span>Consult Service</span>
+            <input id="consult-base-url" type="url" value="http://127.0.0.1:8003" />
+          </label>
+          <label class="field wide">
+            <span>Consult Session ID</span>
+            <input id="consult-id-input" type="text" placeholder="Paste consult session ID or open from AI note assistant" />
+          </label>
+        </div>
+
+        <div class="settings-actions">
+          <div class="status-badge" id="page-status">Review screen not loaded</div>
+          <div class="action-group">
+            <a class="secondary-button" id="back-ai-link" href="./ai-note-assistant.html">Back to AI note assistant</a>
+            <button class="primary-button" type="button" id="load-review-button">Load review</button>
+          </div>
+        </div>
+      </section>
+
+      <main class="review-layout" id="review-layout">
+        <article class="empty-state">
+          <h2>No consult selected yet.</h2>
+          <p>Open this page from the AI note assistant or paste a consult session ID above.</p>
+        </article>
+      </main>
+    </div>
+
+    <script src="./doctor-auth.js?v=doctor-auth-1"></script>
+    <script src="./review-approve.js?v=review5"></script>
+  </body>
+</html>

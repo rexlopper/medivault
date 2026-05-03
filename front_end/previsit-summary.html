@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediVault Pre-Visit Summary | Doctor Briefing</title>
+    <meta
+      name="description"
+      content="Doctor-facing MediVault pre-visit summary screen connected to records, summaries, attachments, and consult orchestration."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./previsit-summary.css?v=previsit4" />
+  </head>
+  <body>
+    <div class="summary-shell">
+      <nav class="app-switcher">
+        <a class="app-switcher-link" href="./intake-demo.html">Patient App</a>
+        <a class="app-switcher-link" href="./doctor-dashboard.html">Doctor Dashboard</a>
+      </nav>
+
+      <header class="summary-hero">
+        <div class="workflow-pills">
+          <span class="workflow-pill">1 Dashboard</span>
+          <span class="workflow-pill active">2 Pre-visit summary</span>
+          <span class="workflow-pill">3 AI note assistant</span>
+          <span class="workflow-pill">4 Review & approve</span>
+          <span class="workflow-pill">5 Saved record</span>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Doctor Briefing</p>
+          <h1>See the patient before the consult begins.</h1>
+          <p class="hero-text">
+            This page turns the patient’s intake, history, uploaded files, and consult state into a
+            single-glance summary the doctor can trust before walking in.
+          </p>
+        </div>
+      </header>
+
+      <section class="settings-panel">
+        <div class="settings-copy">
+          <p class="eyebrow">Live Service Connections</p>
+          <h2>Load one consult session into the doctor’s pre-visit summary.</h2>
+        </div>
+
+        <div class="settings-grid">
+          <label class="field">
+            <span>Records Service</span>
+            <input id="records-base-url" type="url" value="http://127.0.0.1:8000" />
+          </label>
+          <label class="field">
+            <span>Summary Service</span>
+            <input id="summary-base-url" type="url" value="http://127.0.0.1:8001" />
+          </label>
+          <label class="field">
+            <span>Attachment Service</span>
+            <input id="attachment-base-url" type="url" value="http://127.0.0.1:8002" />
+          </label>
+          <label class="field">
+            <span>Consult Service</span>
+            <input id="consult-base-url" type="url" value="http://127.0.0.1:8003" />
+          </label>
+          <label class="field wide">
+            <span>Consult Session ID</span>
+            <input id="consult-id-input" type="text" placeholder="Paste consult session ID or open from dashboard" />
+          </label>
+        </div>
+
+        <div class="settings-actions">
+          <div class="status-badge" id="page-status">Summary not loaded</div>
+          <div class="action-group">
+            <a class="secondary-button" href="./doctor-dashboard.html">Back to dashboard</a>
+            <button class="primary-button" type="button" id="load-summary-button">Load summary</button>
+          </div>
+        </div>
+      </section>
+
+      <main class="summary-layout" id="summary-layout">
+        <article class="empty-state">
+          <h2>No consult selected yet.</h2>
+          <p>Open this page from the doctor dashboard or paste a consult session ID above.</p>
+        </article>
+      </main>
+    </div>
+
+    <script src="./doctor-auth.js?v=doctor-auth-1"></script>
+    <script src="./previsit-summary.js?v=previsit4"></script>
+  </body>
+</html>

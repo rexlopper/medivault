@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediVault Login | Patient and Doctor Access</title>
+    <meta
+      name="description"
+      content="Patient and doctor login for the MediVault prototype using the records service auth endpoints."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./login.css?v=login3" />
+  </head>
+  <body>
+    <div class="login-shell">
+      <nav class="app-switcher">
+        <a class="app-switcher-link" href="./intake-demo.html">Patient App</a>
+        <a class="app-switcher-link" href="./doctor-dashboard.html">Doctor Dashboard</a>
+      </nav>
+
+      <header class="login-hero">
+        <div>
+          <p class="eyebrow" id="portal-eyebrow">MediVault Auth</p>
+          <h1 id="portal-title">Sign in patients and clinic users from one identity layer.</h1>
+          <p class="hero-copy" id="portal-copy">
+            This prototype supports patient registration plus shared login for patient, doctor, and
+            other B2B user accounts backed by the `records_service`.
+          </p>
+        </div>
+        <div class="hero-card">
+          <p class="hero-card-label">What this supports</p>
+          <ul class="flow-list">
+            <li>Patient self-registration</li>
+            <li>Password login for any user account</li>
+            <li>Session token creation</li>
+            <li>Patient / doctor session lookup</li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="login-grid">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Connection</p>
+              <h2>Point the page to your local auth API.</h2>
+            </div>
+            <div id="auth-status" class="status-badge">Auth not checked</div>
+          </div>
+
+          <label class="field">
+            <span>Records Service Base URL</span>
+            <input id="records-base-url" type="url" value="http://127.0.0.1:8000" />
+          </label>
+
+          <div class="form-actions">
+            <button id="check-auth-button" class="secondary-button" type="button">Check auth API</button>
+          </div>
+        </section>
+
+        <section class="panel" id="patient-register-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Patient Registration</p>
+              <h2>Create a patient account with login.</h2>
+            </div>
+          </div>
+
+          <form id="register-form" class="stack-form">
+            <div class="form-grid">
+              <label class="field">
+                <span>First name</span>
+                <input name="given_name" type="text" value="Maria" required />
+              </label>
+              <label class="field">
+                <span>Last name</span>
+                <input name="family_name" type="text" value="Santos" required />
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input name="email" type="email" value="maria.santos@medivault.local" required />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input name="password" type="password" value="patientpass123" required />
+              </label>
+              <label class="field">
+                <span>Birth date</span>
+                <input name="birth_date" type="date" value="1991-08-12" />
+              </label>
+              <label class="field">
+                <span>Sex at birth</span>
+                <select name="sex_at_birth">
+                  <option value="female" selected>Female</option>
+                  <option value="male">Male</option>
+                </select>
+              </label>
+              <label class="field wide">
+                <span>Mobile number</span>
+                <input name="mobile_number" type="tel" value="09171234567" />
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Register patient</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" id="doctor-register-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Doctor Registration</p>
+              <h2>Create a doctor or clinic user account.</h2>
+            </div>
+          </div>
+
+          <form id="doctor-register-form" class="stack-form">
+            <div class="form-grid">
+              <label class="field">
+                <span>Full name</span>
+                <input name="full_name" type="text" value="Dr. J. Reyes" required />
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input name="email" type="email" value="dr.reyes@medivault.local" required />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input name="password" type="password" value="doctorpass123" required />
+              </label>
+              <label class="field">
+                <span>Clinic / organization</span>
+                <input name="organization_name" type="text" value="Clinica San Lorenzo" required />
+              </label>
+              <label class="field">
+                <span>Specialty</span>
+                <input name="specialty" type="text" value="Internal Medicine" />
+              </label>
+              <label class="field">
+                <span>License number</span>
+                <input name="license_number" type="text" value="PRC-1234567" />
+              </label>
+              <label class="field wide">
+                <span>Doctor code</span>
+                <input name="doctor_code" type="text" value="dr-reyes" />
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Register doctor</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">User Login</p>
+              <h2>Log in as patient or doctor.</h2>
+            </div>
+          </div>
+
+          <form id="login-form" class="stack-form">
+            <div class="form-grid">
+              <label class="field">
+                <span>Email</span>
+                <input name="email" type="email" value="maria.santos@medivault.local" required />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input name="password" type="password" value="patientpass123" required />
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Log in</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Current Session</p>
+              <h2>See who is logged in.</h2>
+            </div>
+          </div>
+
+          <div id="session-state" class="session-card">
+            <p>No saved session yet.</p>
+          </div>
+
+          <div class="form-actions">
+            <button id="refresh-session-button" class="secondary-button" type="button">Refresh session</button>
+            <button id="clear-session-button" class="secondary-button" type="button">Clear session</button>
+          </div>
+
+          <div class="result-card">
+            <p class="section-kicker">Latest response</p>
+            <pre id="auth-log">Waiting for auth actions...</pre>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./login.js?v=login3"></script>
+  </body>
+</html>

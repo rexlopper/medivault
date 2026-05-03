@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediVault Doctor Dashboard | Live Queue and Pre-Visit Summary</title>
+    <meta
+      name="description"
+      content="Doctor-facing MediVault dashboard connected to consult orchestration, records, summaries, and attachments."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./doctor-dashboard.css?v=doctor4" />
+  </head>
+  <body>
+    <div class="doctor-shell">
+      <nav class="app-switcher">
+        <a class="app-switcher-link" href="./intake-demo.html">Patient App</a>
+        <a class="app-switcher-link active" href="./doctor-dashboard.html">Doctor Dashboard</a>
+      </nav>
+
+      <header class="doctor-hero">
+        <div class="doctor-session-banner">
+          <div>
+            <p class="doctor-session-label">Doctor Portal</p>
+            <p class="doctor-session-copy" id="doctor-welcome">Checking your doctor session...</p>
+          </div>
+          <button class="secondary-button session-button" type="button" id="doctor-logout-button">Log out</button>
+        </div>
+
+        <div class="workflow-pills">
+          <span class="workflow-pill active">1 Dashboard</span>
+          <span class="workflow-pill">2 Pre-visit summary</span>
+          <span class="workflow-pill">3 AI note assistant</span>
+          <span class="workflow-pill">4 Review & approve</span>
+          <span class="workflow-pill">5 Saved record</span>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Doctor Facing Flow</p>
+          <h1>Queue patients with enough context to act fast.</h1>
+          <p class="hero-text">
+            This dashboard turns completed patient intake into a real doctor worklist: who is ready,
+            what matters first, and which consult can begin now.
+          </p>
+        </div>
+      </header>
+
+      <section class="settings-panel">
+        <div class="settings-copy">
+          <p class="eyebrow">Live Service Connections</p>
+          <h2>Doctor dashboard reads directly from the MediVault stack.</h2>
+        </div>
+
+        <div class="settings-grid">
+          <label class="field">
+            <span>Records Service</span>
+            <input id="records-base-url" type="url" value="http://127.0.0.1:8000" />
+          </label>
+          <label class="field">
+            <span>Summary Service</span>
+            <input id="summary-base-url" type="url" value="http://127.0.0.1:8001" />
+          </label>
+          <label class="field">
+            <span>Attachment Service</span>
+            <input id="attachment-base-url" type="url" value="http://127.0.0.1:8002" />
+          </label>
+          <label class="field">
+            <span>Consult Service</span>
+            <input id="consult-base-url" type="url" value="http://127.0.0.1:8003" />
+          </label>
+          <label class="field">
+            <span>Clinician filter</span>
+            <input id="clinician-filter" type="text" value="dr-reyes" />
+          </label>
+          <label class="field">
+            <span>Search patient</span>
+            <input id="search-input" type="search" placeholder="Maria Santos" />
+          </label>
+        </div>
+
+        <div class="settings-actions">
+          <div class="status-badge" id="dashboard-status">Queue not loaded</div>
+          <button class="primary-button" type="button" id="refresh-dashboard-button">Refresh dashboard</button>
+        </div>
+      </section>
+
+      <section class="metrics-grid" id="metrics-grid">
+        <article class="metric-card">
+          <span class="metric-label">Active consults</span>
+          <strong class="metric-value" id="metric-active">0</strong>
+          <small>Not yet closed</small>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Ready to see</span>
+          <strong class="metric-value" id="metric-ready">0</strong>
+          <small>Intake complete or patient checked in</small>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Avg queue age</span>
+          <strong class="metric-value" id="metric-wait">0m</strong>
+          <small>Based on consult session creation time</small>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Completed today</span>
+          <strong class="metric-value" id="metric-completed">0</strong>
+          <small>Finalized or closed sessions</small>
+        </article>
+      </section>
+
+      <main class="doctor-grid">
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Today’s Queue</p>
+              <h2>Who is ready before the doctor walks in?</h2>
+            </div>
+            <p class="panel-meta" id="queue-meta">Load the queue to begin.</p>
+          </div>
+
+          <div class="queue-list" id="queue-list">
+            <article class="empty-state">
+              <h3>No queue loaded yet.</h3>
+              <p>Use the refresh button above after sending at least one patient intake.</p>
+            </article>
+          </div>
+        </section>
+
+        <aside class="summary-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Pre-Visit Summary</p>
+              <h2 id="detail-title">Choose a patient from the queue.</h2>
+            </div>
+            <div class="summary-actions">
+              <a class="secondary-button disabled-link" href="./previsit-summary.html" id="open-summary-link" aria-disabled="true">Open pre-visit summary</a>
+              <button class="primary-button" type="button" id="primary-action-button" disabled>Start consultation</button>
+            </div>
+          </div>
+
+          <div class="detail-stack" id="detail-stack">
+            <article class="empty-state">
+              <h3>No consult selected.</h3>
+              <p>The doctor summary will appear here once you pick someone from the queue.</p>
+            </article>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./doctor-auth.js?v=doctor-auth-1"></script>
+    <script src="./doctor-dashboard.js?v=doctor4"></script>
+  </body>
+</html>

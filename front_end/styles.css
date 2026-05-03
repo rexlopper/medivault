@@ -64,6 +64,35 @@ body::before {
   margin-bottom: 42px;
 }
 
+.topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px 22px;
+  flex-wrap: wrap;
+}
+
+.topbar-portals {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.topbar-portal-button {
+  min-height: 44px;
+  padding: 0 18px;
+}
+
+.topbar-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px 18px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -89,6 +118,47 @@ body::before {
   color: var(--text);
   text-decoration: none;
   font-weight: 600;
+}
+
+.social-link {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(248, 251, 255, 0.72);
+  transition:
+    transform 0.24s ease,
+    border-color 0.24s ease,
+    background-color 0.24s ease;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+}
+
+.icon-link svg,
+.social-pill svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+.social-label {
+  color: var(--muted);
+}
+
+.social-link:hover,
+.social-link:focus-visible,
+.social-pill:hover,
+.social-pill:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(47, 128, 237, 0.34);
+  background: rgba(223, 238, 255, 0.92);
 }
 
 .hero-grid {
@@ -160,6 +230,40 @@ h3 {
   margin: 22px 0 0;
 }
 
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.portal-card {
+  padding: 20px;
+  border: 1px solid rgba(47, 128, 237, 0.14);
+  border-radius: 24px;
+  background: rgba(248, 251, 255, 0.72);
+  box-shadow: 0 18px 40px rgba(34, 88, 154, 0.08);
+}
+
+.portal-label {
+  margin: 0 0 10px;
+  color: var(--accent-deep);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.portal-card h3 {
+  max-width: 18ch;
+}
+
+.portal-card p {
+  margin: 14px 0 18px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -199,6 +303,12 @@ h3 {
   color: var(--text);
   border-color: var(--line);
   background: rgba(248, 251, 255, 0.76);
+}
+
+.button-tertiary {
+  color: var(--accent-deep);
+  border-color: rgba(47, 128, 237, 0.18);
+  background: rgba(212, 233, 255, 0.82);
 }
 
 .hero-panel {
@@ -371,6 +481,32 @@ h3 {
   margin: 0;
 }
 
+.social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 18px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(248, 251, 255, 0.82);
+  transition:
+    transform 0.24s ease,
+    border-color 0.24s ease,
+    background-color 0.24s ease;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -384,6 +520,7 @@ h3 {
 }
 
 @media (max-width: 900px) {
+  .portal-grid,
   .hero-grid,
   .problem-grid,
   .research-layout,
@@ -406,6 +543,17 @@ h3 {
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 30px;
+  }
+
+  .topbar-right,
+  .topbar-portals,
+  .topbar-links {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .topbar-portal-button {
+    flex: 1 1 190px;
   }
 
   h1 {

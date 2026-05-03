@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: medivault-records-service
+Version: 0.1.0
+Summary: MediVault records service MVP
+Requires-Python: >=3.10
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: uvicorn[standard]<1.0,>=0.30
+Requires-Dist: sqlalchemy<3.0,>=2.0
+Requires-Dist: pydantic<3.0,>=2.8
+Requires-Dist: psycopg[binary]<4.0,>=3.2
+Provides-Extra: dev
+Requires-Dist: pytest<9.0,>=6.2; extra == "dev"
+Requires-Dist: httpx<1.0,>=0.27; extra == "dev"

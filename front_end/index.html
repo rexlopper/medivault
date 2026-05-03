@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=portal-topbar-1" />
   </head>
   <body>
     <div class="page-shell">
@@ -24,7 +24,56 @@
             <span class="brand-mark"></span>
             <span class="brand-text">MediVault</span>
           </div>
-          <a class="nav-link" href="#research">Research Focus</a>
+          <div class="topbar-right">
+            <div class="topbar-portals">
+              <a class="button button-secondary topbar-portal-button" href="./login.html?portal=patient">Patient Portal</a>
+              <a class="button button-primary topbar-portal-button" href="./login.html?portal=doctor">Doctor Portal</a>
+            </div>
+
+            <div class="topbar-links">
+              <a class="nav-link" href="#research">Research Focus</a>
+              <a
+                class="nav-link social-link icon-link"
+                href="https://www.facebook.com/bryitbuilderscorp"
+                aria-label="Visit MediVault on Facebook"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.76c0-.93.26-1.56 1.6-1.56h1.71V4.34c-.3-.04-1.32-.14-2.5-.14-2.47 0-4.16 1.5-4.16 4.27v2.33H7.99V14h2.65v8h2.86Z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="nav-link social-link icon-link"
+                href="https://www.instagram.com/bryitbuilderscorp/"
+                aria-label="Visit MediVault on Instagram"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M7.75 3h8.5A4.75 4.75 0 0 1 21 7.75v8.5A4.75 4.75 0 0 1 16.25 21h-8.5A4.75 4.75 0 0 1 3 16.25v-8.5A4.75 4.75 0 0 1 7.75 3Zm0 1.8A2.95 2.95 0 0 0 4.8 7.75v8.5a2.95 2.95 0 0 0 2.95 2.95h8.5a2.95 2.95 0 0 0 2.95-2.95v-8.5a2.95 2.95 0 0 0-2.95-2.95h-8.5Zm8.95 1.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7.6A4.4 4.4 0 1 1 7.6 12 4.4 4.4 0 0 1 12 7.6Zm0 1.8A2.6 2.6 0 1 0 14.6 12 2.6 2.6 0 0 0 12 9.4Z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="nav-link social-label"
+                href="https://www.facebook.com/bryitbuilderscorp"
+                target="_blank"
+                rel="noreferrer"
+                >Facebook</a
+              >
+              <a
+                class="nav-link social-label"
+                href="https://www.instagram.com/bryitbuilderscorp/"
+                target="_blank"
+                rel="noreferrer"
+                >Instagram</a
+              >
+            </div>
+          </div>
         </nav>
 
         <div class="hero-grid">
@@ -37,9 +86,31 @@
               fragmented records, and overloaded consultations.
             </p>
 
+            <div class="portal-grid">
+              <article class="portal-card">
+                <p class="portal-label">Patient Portal</p>
+                <h3>Patients can sign in and continue their care journey.</h3>
+                <p>Use this path for patient registration, patient login, intake, and future patient record access.</p>
+                <a class="button button-primary" href="./login.html?portal=patient">Open Patient Portal</a>
+              </article>
+
+              <article class="portal-card">
+                <p class="portal-label">Doctor Portal</p>
+                <h3>Doctors and clinic users can sign in to the worklist.</h3>
+                <p>Use this path for B2B clinic login, queue review, consult prep, and doctor documentation.</p>
+                <a class="button button-secondary" href="./login.html?portal=doctor">Open Doctor Portal</a>
+              </article>
+            </div>
+
             <div class="hero-actions">
               <a class="button button-primary" href="#problem">See The Problem</a>
               <a class="button button-secondary" href="#voices">What We Are Learning</a>
+              <a class="button button-tertiary" href="./intake-demo.html">Open Intake Demo</a>
+              <a class="button button-tertiary" href="./doctor-dashboard.html">Open Doctor Dashboard</a>
+              <a class="button button-tertiary" href="./previsit-summary.html">Open Pre-Visit Summary</a>
+              <a class="button button-tertiary" href="./ai-note-assistant.html">Open AI Note Assistant</a>
+              <a class="button button-tertiary" href="./review-approve.html">Open Review & Approve</a>
+              <a class="button button-tertiary" href="./saved-record.html">Open Saved Record</a>
             </div>
           </section>
 
@@ -184,6 +255,37 @@
               frame the inquiry clearly: understand the system first, then decide what deserves to
               be built.
             </p>
+
+            <div class="social-row">
+              <a
+                class="social-pill"
+                href="https://www.facebook.com/bryitbuilderscorp"
+                aria-label="Visit MediVault on Facebook"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.76c0-.93.26-1.56 1.6-1.56h1.71V4.34c-.3-.04-1.32-.14-2.5-.14-2.47 0-4.16 1.5-4.16 4.27v2.33H7.99V14h2.65v8h2.86Z"
+                  />
+                </svg>
+                <span>Facebook</span>
+              </a>
+              <a
+                class="social-pill"
+                href="https://www.instagram.com/bryitbuilderscorp/"
+                aria-label="Visit MediVault on Instagram"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M7.75 3h8.5A4.75 4.75 0 0 1 21 7.75v8.5A4.75 4.75 0 0 1 16.25 21h-8.5A4.75 4.75 0 0 1 3 16.25v-8.5A4.75 4.75 0 0 1 7.75 3Zm0 1.8A2.95 2.95 0 0 0 4.8 7.75v8.5a2.95 2.95 0 0 0 2.95 2.95h8.5a2.95 2.95 0 0 0 2.95-2.95v-8.5a2.95 2.95 0 0 0-2.95-2.95h-8.5Zm8.95 1.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7.6A4.4 4.4 0 1 1 7.6 12 4.4 4.4 0 0 1 12 7.6Zm0 1.8A2.6 2.6 0 1 0 14.6 12 2.6 2.6 0 0 0 12 9.4Z"
+                  />
+                </svg>
+                <span>Instagram</span>
+              </a>
+            </div>
           </div>
         </section>
       </main>
